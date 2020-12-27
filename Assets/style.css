@@ -1,0 +1,30 @@
+/* Set Global font */
+* {
+    font-family: 'Lora', serif;
+}
+
+body {
+    background-color: #2AB7CA;
+}
+
+header {
+    background-color: #FE4A49;
+    text-align: center;
+}
+
+h1 {
+    color: #E6E6EA;
+}
+
+h2 {
+    border: solid 5px magenta;
+}
+
+/* Tart orange
+#FE4A49
+
+Orange Yellow Crayola
+#FED766
+
+Gainsboro (grayish)
+#E6E6EA */
