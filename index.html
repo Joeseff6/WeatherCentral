@@ -21,15 +21,20 @@
         <div class="row">
             <div class="col-4" id="sidebar">
                 <form id="searchForm">
-                    <label class="w-100" for="searchLocation">Choose a location:</label>
-                    <input type="search" name="searchLocation" id="searchLocation" placeholder="Enter a city">
+                    <label class="w-100" for="searchLocation">Choose a location: (If including state, you must not abbreviate state, e.g. Tx)</label>
+                    <input type="search" name="searchLocation" id="searchLocation" placeholder="Enter a city,state">
                     <button class="btn btn-primary" type="submit" id="searchBtn">Search</button>
                 </form>
                 <h2>List of cities</h2>
             </div>
             <div class="col-8" id="main">
                 <h2 id="city">City Name:</h2>
-                <h2 id="forecast">City Forecast:</h2>
+                <h2>City Forecast:</h2>
+                    <div id="day1"></div>
+                    <div id="day2"></div>
+                    <div id="day3"></div>
+                    <div id="day4"></div>
+                    <div id="day5"></div>
             </div>
         </div>
 
