@@ -19,14 +19,15 @@
         </div>
 
         <div class="row">
-            <div class="col-3 sidebar">
-                <form class="d-flex" id="searchForm">
-                    <input class="form-control me-2" type="search" placeholder="Enter location" aria-label="Search">
-                    <button class="btn btn-outline-success" id="locationSearch" type="submit">Search</button>
+            <div class="col-3" id="sidebar">
+                <form id="searchForm">
+                    <label class="w-100" for="searchLocation">Choose a location:</label>
+                    <input type="search" name="searchLocation" id="searchLocation" placeholder="Enter a city,state">
+                    <button class="btn btn-primary" type="submit">Search</button>
                 </form>
                 <h2>List of cities</h2>
             </div>
-            <div class="col-9 main">
+            <div class="col-9" id="main">
                 <h2>City Name</h2>
                 <h2>City Forecast</h2>
             </div>
