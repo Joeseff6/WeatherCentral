@@ -22,6 +22,7 @@ searchBtn.click(function() {
                 method: `GET`
             })
             .then(function(response) {
+
             })
         }
     })
