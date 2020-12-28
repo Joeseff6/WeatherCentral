@@ -1,7 +1,6 @@
 /* Set Global font and font color*/
 * {
     font-family: 'Lora', serif;
-    color: #E6E6EA
 }
 
 body {
@@ -13,14 +12,17 @@ header {
     text-align: center;
 }
 
+h1, #main {
+    color:#E6E6EA ;
+}
 
 h2 {
     border: solid 5px magenta;
 }
 
-.sidebar {
+#sidebar {
     border: midnightblue solid 5px;
-    background-color: white;
+    background-color: #E6E6EA;
 }
 
 /* Tart orange
