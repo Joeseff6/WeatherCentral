@@ -22,13 +22,36 @@ searchBtn.click(function() {
             })
 
                 .then(function(response) {
-                    let date = response.list[0].dt_txt;
-                    let icon = Object.values(response.list[0].weather[0])[3];
-                    let tempF = ((Object.values(response.list[0].main)[0]-273.15)*1.8+32).toFixed(2);
-                    let humidity = Object.values(response.list[0].main)[7]
-                    let windspeed = Object.values(response.list[0].wind)[0]
 
-                    console.log(response)
+                    let hourIterator = 0;
+                    let date = ``;
+                    let icon = ``;
+                    let tempF = 0;
+                    let humidity = 0;
+                    let windspeed = 0;
+                    let counter = 1;
+
+                    
+                    for (let i = 1; i < 11; i++) {
+                        date = response.list[hourIterator].dt_txt;
+                        icon = Object.values(response.list[hourIterator].weather[0])[3];
+                        tempF = ((Object.values(response.list[hourIterator].main)[0]-273.15)*1.8+32).toFixed(2);
+                        humidity = Object.values(response.list[hourIterator].main)[7];
+                        windspeed = Object.values(response.list[hourIterator].wind)[0];
+
+                        $(`#icon${i}`).attr(`src`,`http://openweathermap.org/img/wn/${icon}@2x.png`);
+
+                    
+                        hourIterator += 2
+                        counter++
+                        if (counter === 3 && hourIterator < 36) {
+                            counter = 1
+                            hourIterator += 4
+                        }
+                    }
+
+
+                        console.log(response)
 
 
 
