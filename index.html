@@ -19,7 +19,7 @@
         </div>
 
         <div class="row">
-            <div class="col-3" id="sidebar">
+            <div class="col" id="sidebar">
                 <form id="searchForm">
                     <label class="d-block" for="searchLocation">Choose a location: (If including state, you must not abbreviate state)</label>
                     <input type="search" name="searchLocation" id="searchLocation" placeholder="Ex: Houston,Texas">
@@ -28,28 +28,31 @@
                 <h2>List of cities</h2>
             </div>
             <div class="col-9" id="main">
-                <h2 id="city">City Name:</h2>
-                <h2>City Forecast:</h2>
+                <h2 id="city">City Name: Pick a City!</h2>
+                <h2>City Forecast: Three 6-Hour Intervals</h2>
                 <div class="row">
                     <div class="col">
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon1">
+                        <div class="row dayHeader">
+                            <h3 id="dayHeaderText1"></h3>    
+                        </div>
+                        <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon1">
                             <span class="d-block" id="date1"></span>
                             <span class="d-block" id="temp1"></span>
                             <span class="d-block" id="humidity1"></span>
                             <span class="d-block" id="windSpeed1"></span>
                             <span class="d-block" id="UV1"></span>
                         </div>
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon2">
+                        <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon2">
                             <span class="d-block" id="date2"></span>
                             <span class="d-block" id="temp2"></span>
                             <span class="d-block" id="humidity2"></span>
                             <span class="d-block" id="windSpeed2"></span>
                             <span class="d-block" id="UV2"></span>
                         </div>
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon3">
+                        <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon3">
                             <span class="d-block" id="date3"></span>
                             <span class="d-block" id="temp3"></span>
                             <span class="d-block" id="humidity3"></span>
@@ -59,24 +62,27 @@
                     </div>
 
                     <div class="col">
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon4">         
+                        <div class="row dayHeader">
+                            <h3 id="dayHeaderText2"></h3>    
+                        </div>
+                        <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon4">         
                             <span class="d-block" id="date4"></span>
                             <span class="d-block" id="temp4"></span>
                             <span class="d-block" id="humidity4"></span>
                             <span class="d-block" id="windSpeed4"></span>
                             <span class="d-block" id="UV4"></span>
                         </div>
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon5">
+                        <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon5">
                             <span class="d-block" id="date5"></span>
                             <span class="d-block" id="temp5"></span>
                             <span class="d-block" id="humidity5"></span>
                             <span class="d-block" id="windSpeed5"></span>
                             <span class="d-block" id="UV5"></span>
                         </div>
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon6">
+                        <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon6">
                             <span class="d-block" id="date6"></span>
                             <span class="d-block" id="temp6"></span>
                             <span class="d-block" id="humidity6"></span>
@@ -86,24 +92,27 @@
                     </div>
 
                     <div class="col">
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon7">
+                        <div class="row dayHeader">
+                            <h3 id="dayHeaderText3"></h3>    
+                        </div>
+                        <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon7">
                             <span class="d-block" id="date7"></span>
                             <span class="d-block" id="temp7"></span>
                             <span class="d-block" id="humidity7"></span>
                             <span class="d-block" id="windSpeed7"></span>
                             <span class="d-block" id="UV7"></span>
                         </div>
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon8">
+                        <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon8">
                             <span class="d-block" id="date8"></span>
                             <span class="d-block" id="temp8"></span>
                             <span class="d-block" id="humidity8"></span>
                             <span class="d-block" id="windSpeed8"></span>
                             <span class="d-block" id="UV8"></span>
                         </div>
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon9">
+                        <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon9">
                             <span class="d-block" id="date9"></span>
                             <span class="d-block" id="temp9"></span>
                             <span class="d-block" id="humidity9"></span>
@@ -113,57 +122,61 @@
                     </div>
 
                     <div class="col">
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon10">            
+                        <div class="row dayHeader">
+                            <h3 id="dayHeaderText4"></h3>    
+                        </div>
+                        <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon10">            
                             <span class="d-block" id="date10"></span>
                             <span class="d-block" id="temp10"></span>
                             <span class="d-block" id="humidity10"></span>
                             <span class="d-block" id="windSpeed10"></span>
                             <span class="d-block" id="UV10"></span>
                         </div>
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon11">
+                        <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon11">
                             <span class="d-block" id="date11"></span>
                             <span class="d-block" id="temp11"></span>
                             <span class="d-block" id="humidity11"></span>
-                            <span class="d-block" id="windSpeed11"></   span>
+                            <span class="d-block" id="windSpeed11"></span>
                             <span class="d-block" id="UV11"></span>
                         </div>
-
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon12">
+                        <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon12">
                             <span class="d-block" id="date12"></span>
                             <span class="d-block" id="temp12"></span>
                             <span class="d-block" id="humidity12"></span>
-                            <span class="d-block" id="windSpeed12"></   span>
+                            <span class="d-block" id="windSpeed12"></span>
                             <span class="d-block" id="UV12"></span>
                         </div>
+                    </div>
 
                     <div class="col">
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon13">            
-                            <span class="d-block" id="date13"></    span>
+                        <div class="row dayHeader">
+                            <h3 id="dayHeaderText5"></h3>    
+                        </div>
+                            <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon13">            
+                            <span class="d-block" id="date13"></span>
                             <span class="d-block" id="temp13"></span>
                             <span class="d-block" id="humidity13"></span>
                             <span class="d-block" id="windSpeed13"></span>
                             <span class="d-block" id="UV13"></span>
                         </div>
-
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon14">
+                        <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon14">
                             <span class="d-block" id="date14"></span>
                             <span class="d-block" id="temp14"></span>
                             <span class="d-block" id="humidity14"></span>
-                            <span class="d-block" id="windSpeed14"></   span>
+                            <span class="d-block" id="windSpeed14"></span>
                             <span class="d-block" id="UV14"></span>
                         </div>
-
-                        <div class="row dayBox">
-                            <img class="d-block" id="icon15">
+                        <div class="row dayBox mx-1 mb-2">
+                            <img class="d-block imgSize m-auto" id="icon15">
                             <span class="d-block" id="date15"></span>
                             <span class="d-block" id="temp15"></span>
                             <span class="d-block" id="humidity15"></span>
-                            <span class="d-block" id="windSpeed15"></   span>
+                            <span class="d-block" id="windSpeed15"></span>
                             <span class="d-block" id="UV15"></span>
                         </div>
                     </div>
