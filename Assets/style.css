@@ -10,19 +10,32 @@ body {
 header {
     background-color: #FE4A49;
     text-align: center;
+    border-bottom: black 3px solid;
 }
 
 h1, #main {
     color:#E6E6EA ;
 }
 
-h2 {
-    border: solid 5px magenta;
+#sidebar {
+    background-color: #0081a7;
+    color:#E6E6EA ;
+    border-right: black 3px solid;
+    border-bottom: black 3px solid;
 }
 
-#sidebar {
-    border: midnightblue solid 5px;
-    background-color: #E6E6EA;
+.dayBox {
+    background-color: #0081a7;
+    border: solid 2px #FE4A49;
+    border-radius: 15px;
+}
+
+.dayHeader {
+    text-align: center;
+}
+
+.imgSize {
+    max-width: 124px;
 }
 
 /* Tart orange
