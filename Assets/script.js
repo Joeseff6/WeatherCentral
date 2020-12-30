@@ -23,7 +23,7 @@ searchBtn.click(function() {
 
 
 
-        var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${weatherAPIKey}`;
+        var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${weatherAPIKey}`;
 
             $.ajax({
                 url: forecastURL,
@@ -31,6 +31,7 @@ searchBtn.click(function() {
             })
 
                 .then(function(response) {
+                    console.log(forecastURL)
 
                     let hourIterator = 0;
                     let date = ``;
@@ -43,15 +44,15 @@ searchBtn.click(function() {
                     for (let i = 1; i < 16; i++) {
                         icon = Object.values(response.list[hourIterator].weather[0])[3];
                         date = response.list[hourIterator].dt_txt;
-                        tempF = ((Object.values(response.list[hourIterator].main)[0]-273.15)*1.8+32).toFixed(2);
+                        tempF = (Object.values(response.list[hourIterator].main)[0]).toFixed(2);
                         humidity = Object.values(response.list[hourIterator].main)[7];
-                        windspeed = Object.values(response.list[hourIterator].wind)[1];
+                        windspeed = Object.values(response.list[hourIterator].wind)[0];
 
-                        $(`#icon${i}`).attr(`src`,`http://openweathermap.org/img/wn/${icon}@2x.png`);
+                        $(`#icon${i}`).attr(`src`,`https://openweathermap.org/img/wn/${icon}@2x.png`);
                         $(`#date${i}`).text(`Day: ${date}`);
-                        $(`#temp${i}`).text(`Temp(F): ${tempF}`);
-                        $(`#humidity${i}`).text(`Humidity: ${humidity}`);
-                        $(`#windSpeed${i}`).text(`Windspeed(m/s): ${windspeed}`);
+                        $(`#temp${i}`).text(`Temp: ${tempF}\u00B0F`);
+                        $(`#humidity${i}`).text(`Humidity: ${humidity}%`);
+                        $(`#windSpeed${i}`).text(`Wind Speed: ${windspeed}mph`);
 
                     
                         hourIterator += 2
