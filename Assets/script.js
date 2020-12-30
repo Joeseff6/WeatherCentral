@@ -8,15 +8,18 @@ var weatherAPIKey = `e1e7a51f8e49f8c421e774a281377b83`;
 
 
 searchBtn.click(function() {
+    var city = searchVal.val();
+    $(`<button>${city}</button>`).appendTo(`#searchHistory`)
     searchForm.submit(function(event) {
         event.preventDefault();
-        var city = searchVal.val();
         $(`#city`).text(`City Name: ${city}`)
         $(`#dayHeaderText1`).text(`Day One`)
         $(`#dayHeaderText2`).text(`Day Two`)
         $(`#dayHeaderText3`).text(`Day Three`)
         $(`#dayHeaderText4`).text(`Day Four`)
         $(`#dayHeaderText5`).text(`Day Five`)
+
+
 
 
 
