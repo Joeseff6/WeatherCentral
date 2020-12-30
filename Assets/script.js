@@ -86,14 +86,6 @@ searchBtn.click(function() {
 
 
 
-
-        // var locationURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
-        
-        // $.ajax({
-        //     url: locationURL,
-        //     method: `GET`
-        // })
-
     
 
 
