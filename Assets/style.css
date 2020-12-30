@@ -24,13 +24,13 @@ h1, #main {
     border-bottom: black 3px solid;
 }
 
-.dayBox {
+.dayBox, .uviHeader {
     background-color: #0081a7;
     border: solid 2px #FE4A49;
     border-radius: 15px;
 }
 
-.dayHeader {
+.dayHeader, .uviHeader {
     text-align: center;
 }
 
