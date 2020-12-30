@@ -12,6 +12,12 @@ searchBtn.click(function() {
         event.preventDefault();
         var city = searchVal.val();
         $(`#city`).text(`City Name: ${city}`)
+        $(`#dayHeaderText1`).text(`Day One`)
+        $(`#dayHeaderText2`).text(`Day Two`)
+        $(`#dayHeaderText3`).text(`Day Three`)
+        $(`#dayHeaderText4`).text(`Day Four`)
+        $(`#dayHeaderText5`).text(`Day Five`)
+
 
 
         var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${weatherAPIKey}`;
