@@ -52,8 +52,6 @@ searchBtn.click(function() {
 
                     var lat = Object.values(response.city.coord)[0];
                     var lon = Object.values(response.city.coord)[1];
-                    console.log(lat)
-                    console.log(lon)
 
                     var uviURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${weatherAPIKey}`
 
@@ -63,12 +61,10 @@ searchBtn.click(function() {
                     })
                         .then(function(response) {
                             let uvi = 0
-                            console.log(response)
 
                             for (let i = 0; i < 5; i++) {
                                 uvi = Math.round(Object.values(response.daily[i])[14])
                                 uviArrLength = (Object.values(response.daily[i])).length
-                                console.log(uviArrLength)
 
                                 if (uviArrLength === 14) {
                                     uvi = Math.round(Object.values(response.daily[i])[13])
