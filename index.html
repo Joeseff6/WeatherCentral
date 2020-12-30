@@ -19,17 +19,19 @@
         </div>
 
         <div class="row">
-            <div class="col" id="sidebar">
+            <aside class="col" id="sidebar">
                 <form id="searchForm">
                     <label class="d-block" for="searchLocation">Choose a location: (If including state, you must not abbreviate state)</label>
                     <input type="search" name="searchLocation" id="searchLocation" placeholder="Ex: Houston,Texas">
                     <button class="btn btn-primary" type="submit" id="searchBtn">Search</button>
                 </form>
-                <h2>List of cities</h2>
-            </div>
+                <div class="row" id="searchHistory">
+                    <h2>Search History</h2>
+                </div>
+            </aside>
             <div class="col-9" id="main">
                 <h2 id="city">City Name: Pick a City!</h2>
-                <h2>City Forecast: Three 6-Hour Intervals</h2>
+                <h2>City Forecast: Five Day, Three 6-Hour Intervals</h2>
                 <div class="row">
                     <div class="col">
                         <div class="row dayHeader">
