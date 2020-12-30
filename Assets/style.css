@@ -38,6 +38,9 @@ h1, #main {
     max-width: 124px;
 }
 
+#searchBtn {
+    border: black 1px solid;
+}
 /* Tart orange
 #FE4A49
 
