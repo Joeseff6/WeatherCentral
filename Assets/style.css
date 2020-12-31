@@ -21,7 +21,6 @@ h1, #main {
     background-color: #0081a7;
     color:#E6E6EA ;
     border: black 2px solid;
-
 }
 
 .dayBox, .uviHeader {
@@ -46,11 +45,10 @@ h1, #main {
     margin: auto;
 }
 
-/* Tart orange
-#FE4A49
+.test {
+    background-color: #ff4141
+}
 
-Orange Yellow Crayola
-#FED766
-
-Gainsboro (grayish)
-#E6E6EA */
+.weatherContainer {
+    height: 100vh;
+}
