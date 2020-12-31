@@ -13,7 +13,6 @@ searchBtn.click(function() {
         event.preventDefault();
         $(`#city`).text(`City Name: ${city}`)
 
-
         var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${weatherAPIKey}`;
                         
         $.ajax({
@@ -21,8 +20,6 @@ searchBtn.click(function() {
             method: `GET`
         })
             .then(function(response) {
-
-
                 var lat = Object.values(response.city.coord)[0];
                 var lon = Object.values(response.city.coord)[1];
                 var onecallURL = `https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=${lat}&lon=${lon}&appid=${weatherAPIKey}`
@@ -42,7 +39,7 @@ searchBtn.click(function() {
                         };
                         let uviCondition = ``
                         let currentWeatherType = Object.values(response.current.weather[0])[1]
-                        let currentTemp = Object.values(response.current)[3]
+                        let currentTemp = Object.values(response.current)[3].toFixed(0)
                         let currentHumidity = Object.values(response.current)[6]
                         let currentWindSpeed = Object.values(response.current)[11]
 
@@ -63,17 +60,14 @@ searchBtn.click(function() {
                         for (let i = 0; i < 5; i++) {
                             uvi = Math.round(Object.values(response.daily[i])[14])
                             uviArrLength = (Object.values(response.daily[i])).length
-        
                             if (uviArrLength === 14) {
                                 uvi = Math.round(Object.values(response.daily[i])[13])
                             }
                             uviColor(uvi)
-        
                             $(`#uviText${i}`).text(`UV Index:`);
                             $(`#uviNumber${i}`).text(uvi).css(uviProperties);
                             $(`#uviCondition${i}`).text(uviCondition);
                         }
-
                         function uviColor(uviParameter) {
                             if (uviParameter <= 2) {
                                 uviCondition = `Low`  
@@ -95,9 +89,6 @@ searchBtn.click(function() {
                     })
             })
 
-
-        
-                        
         $.ajax({
             url: forecastURL,
             method: `GET`
@@ -126,7 +117,7 @@ searchBtn.click(function() {
 
                     icon = Object.values(response.list[hourIterator].weather[0])[3];
                     date = response.list[hourIterator].dt_txt;
-                    tempF = (Object.values(response.list[hourIterator].main)[0]).toFixed(2);
+                    tempF = (Object.values(response.list[hourIterator].main)[0]).toFixed(0);
                     humidity = Object.values(response.list[hourIterator].main)[7];
                     windspeed = Object.values(response.list[hourIterator].wind)[0];
                     $(`#icon${i}`).attr(`src`,`https://openweathermap.org/img/wn/${icon}@2x.png`);
@@ -142,6 +133,5 @@ searchBtn.click(function() {
                     }
                 }
             })
-
     })
 })
