@@ -1,36 +1,30 @@
 const searchForm = $(`#searchForm`);
 const searchBtn = $(`#searchBtn`);
 const searchVal = $(`#searchLocation`)
+const clearBtn = $(`#clearBtn`)
 var cityList = [];
 var weatherAPIKey = `e1e7a51f8e49f8c421e774a281377b83`;
 var city = ``
 
 getStoredCities()
 
-function rendorStoredCities() {
-    for (let i = 0; i < cityList.length; i++) {
-        city = cityList[i]
-        $(`<button>${city}</button>`).appendTo(`#searchHistory`)
-    }
-}
-
-function getStoredCities() {
-    var listedCities = JSON.parse(localStorage.getItem(`Stored City`))
-    if (listedCities !== null) {
-        cityList = listedCities
-    }
-    rendorStoredCities()
-}
-
+clearBtn.click(function() {
+    cityList = []
+    localStorage.setItem(`Stored City`, JSON.stringify(cityList));
+    $(`.remove`).remove()
+})
 
 searchBtn.click(function() {
+
     city = searchVal.val();
+    console.log(city)
+    // searchVal.val(``)
     cityList.push(city)
     storeCities()
 
     console.log(cityList)
     $(`.forecastSection`).removeClass(`d-none`)
-    $(`<button>${city}</button>`).appendTo(`#searchHistory`)
+    $(`<button class="remove">${city}</button>`).appendTo(`#searchHistory`)
 
     searchForm.submit(function(event) {
         event.preventDefault();
@@ -160,4 +154,22 @@ searchBtn.click(function() {
     function storeCities() {
         localStorage.setItem(`Stored City`, JSON.stringify(cityList));
     }
+    
+
+
 })
+
+function rendorStoredCities() {
+    for (let i = 0; i < cityList.length; i++) {
+        city = cityList[i]
+        $(`<button class="remove">${city}</button>`).appendTo(`#searchHistory`)
+    }
+}
+
+function getStoredCities() {
+    var listedCities = JSON.parse(localStorage.getItem(`Stored City`))
+    if (listedCities !== null) {
+        cityList = listedCities
+    }
+    rendorStoredCities()
+}
