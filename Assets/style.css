@@ -41,6 +41,11 @@ h1, #main {
 #searchBtn {
     border: black 1px solid;
 }
+
+.w-25 {
+    margin: auto;
+}
+
 /* Tart orange
 #FE4A49
 
