@@ -19,17 +19,19 @@
         </div>
 
         <div class="row weatherContainer">
-            <aside class="col-3" id="sidebar">
+            <aside class="col-2" id="sidebar">
                 <form id="searchForm">
                     <label  for="searchLocation">Choose a location: (If including state, you must not abbreviate state)</label>
-                    <input type="search" name="searchLocation" id="searchLocation" placeholder="Ex: Houston,Texas">
+                    <input type="search" name="searchLocation" id="searchLocation" placeholder="Ex: Houston,Texas" required="required">
                     <button class="btn btn-primary" type="submit" id="searchBtn">Search</button>
+                    
                 </form>
+                <button class="btn btn-danger" type="button" id="clearBtn">Clear search history</button>
                 <div class="row" id="searchHistory">
                     <h3>Search History</h3>
                 </div>
             </aside>
-            <div class="col-9" id="main">
+            <div class="col-10" id="main">
                 <section id="centralDisplay">
                     <div class="row">
                         <h2 id="city">City Name: Pick a City!</h2>
