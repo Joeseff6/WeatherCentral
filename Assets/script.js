@@ -61,6 +61,11 @@ searchBtn.click(function() {
                     })
                         .then(function(response) {
                             let uvi = 0
+                            let uviProperties = {
+                                backgroundColor: ``,
+                                color: `black`
+                            };
+                            let uviCondition = ``
 
                             for (let i = 0; i < 5; i++) {
                                 uvi = Math.round(Object.values(response.daily[i])[14])
@@ -71,19 +76,24 @@ searchBtn.click(function() {
                                 }
 
                                 if (uvi <= 2) {
-                                    var uviCondition = `Low`
+                                    uviCondition = `Low`  
+                                    uviProperties.backgroundColor = `darkgreen`;
                                 } else if (uvi <= 5) {
-                                    var uviCondition = `Moderate`
+                                    uviCondition = `Moderate`
+                                    uviProperties.backgroundColor = `yellow`;
                                 } else if (uvi <= 7) {
-                                    var uviCondition = `High`
+                                    uviCondition = `High`
+                                    uviProperties.backgroundColor = `orange`;
                                 } else if (uvi <= 10) {
-                                    var uviCondition = `Very High`
+                                    uviCondition = `Very High`
+                                    uviProperties.backgroundColor = `red`;
                                 } else {
-                                    var uviCondition = `Extreme`
+                                    uviCondition = `Extreme`
+                                    uviProperties.backgroundColor = `purple`;
                                 }
     
                                 $(`#uviText${i}`).text(`UV Index:`);
-                                $(`#uviNumber${i}`).text(uvi);
+                                $(`#uviNumber${i}`).text(uvi).css(uviProperties);
                                 $(`#uviCondition${i}`).text(uviCondition);
                                 
 
