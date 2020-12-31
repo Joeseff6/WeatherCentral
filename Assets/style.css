@@ -37,7 +37,7 @@ h1, #main {
     max-width: 124px;
 }
 
-#searchBtn {
+.btn {
     border: black 1px solid;
 }
 
