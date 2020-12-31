@@ -114,6 +114,14 @@ searchBtn.click(function() {
                 let windspeed = 0;
                 let counter = 0;
                 for (let i = 1; i < 16; i++) {
+                    for (let j = 1; j < 6; j++) {
+                        if (j % 2 === 0) {
+                            $(`#dayCol${j}`).css(`backgroundColor`,`#ff7777`).css(`border`, `solid black 2px`)
+                        } else {
+                            $(`#dayCol${j}`).css(`backgroundColor`,`#ff4141`).css(`border`, `solid black 2px`)
+                        }
+                    }
+
                     icon = Object.values(response.list[hourIterator].weather[0])[3];
                     date = response.list[hourIterator].dt_txt;
                     tempF = (Object.values(response.list[hourIterator].main)[0]).toFixed(2);
