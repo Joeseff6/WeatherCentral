@@ -8,14 +8,11 @@ searchBtn.click(function() {
     var city = searchVal.val();
     $(`.forecastSection`).removeClass(`d-none`)
     $(`<button>${city}</button>`).appendTo(`#searchHistory`)
+
     searchForm.submit(function(event) {
         event.preventDefault();
         $(`#city`).text(`City Name: ${city}`)
-        $(`#dayHeaderText1`).text(`Day One`)
-        $(`#dayHeaderText2`).text(`Day Two`)
-        $(`#dayHeaderText3`).text(`Day Three`)
-        $(`#dayHeaderText4`).text(`Day Four`)
-        $(`#dayHeaderText5`).text(`Day Five`)
+
 
         var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${weatherAPIKey}`;
                         
@@ -34,38 +31,35 @@ searchBtn.click(function() {
                     method: `GET`
                 })
                     .then(function(response) {
-                        console.log(response)
+                        // window.open(onecallURL,`_target`)
                         $(`.currentWeatherSection`).removeClass(`d-none`)
-
                         let currentDate = dayjs().format('MMMM D, YYYY')
                         let currentIcon = Object.values(response.current.weather[0])[3];
-                        let currentWeatherType = Object.values(response.current.weather[0])[1]
-                        console.log(Object.values(response.current.weather[0]))
-
-                        let currentTemp = Object.values(response.current)[3]
-                        let currentHumidity = Object.values(response.current)[6]
-                        let currentWindSpeed = Object.values(response.current)[11]
-                        $(`#currentWeatherType`).text(`The Current Weather Type Is: ${currentWeatherType}`);
-
-                        $(`#currentTemp`).text(`Temp: ${currentTemp}\u00B0F`);
-                        $(`#currentHumidity`).text(`Humidity: ${currentHumidity}%`);
-                        $(`#currentWindSpeed`).text(`Wind Speed: ${currentWindSpeed}mph`);
-
-
-                        $(`#currentWeatherHeader`).text(`Current Weather: Today is ${currentDate}`)
-
-
-                        $(`#currentIcon`).attr(`src`,`https://openweathermap.org/img/wn/${currentIcon}@2x.png`)
-
-
-
-                        let uvi = 0
+                        let currentUvi = Math.round(Object.values(response.current)[8])
                         let uviProperties = {
                             backgroundColor: ``,
                             color: `black`
                         };
                         let uviCondition = ``
-        
+                        let currentWeatherType = Object.values(response.current.weather[0])[1]
+                        let currentTemp = Object.values(response.current)[3]
+                        let currentHumidity = Object.values(response.current)[6]
+                        let currentWindSpeed = Object.values(response.current)[11]
+
+                        uviColor(currentUvi)
+
+                        $(`#currentWeatherType`).text(`The Current Weather Type Is: ${currentWeatherType}`);
+                        $(`#currentUviText`).text(`UV Index:`);
+                        $(`#currentUviNumber`).text(currentUvi).css(uviProperties);
+                        $(`#currentUviCondition`).text(`UV Condition: ${uviCondition}`);
+                        $(`#currentTemp`).text(`Temp: ${currentTemp}\u00B0F`);
+                        $(`#currentHumidity`).text(`Humidity: ${currentHumidity}%`);
+                        $(`#currentWindSpeed`).text(`Wind Speed: ${currentWindSpeed}mph`);
+                        $(`#currentWeatherHeader`).text(`Current Weather: Today is ${currentDate}`)
+                        $(`#currentIcon`).attr(`src`,`https://openweathermap.org/img/wn/${currentIcon}@2x.png`)
+
+                        let uvi = 0
+
                         for (let i = 0; i < 5; i++) {
                             uvi = Math.round(Object.values(response.daily[i])[14])
                             uviArrLength = (Object.values(response.daily[i])).length
@@ -73,27 +67,30 @@ searchBtn.click(function() {
                             if (uviArrLength === 14) {
                                 uvi = Math.round(Object.values(response.daily[i])[13])
                             }
+                            uviColor(uvi)
         
-                            if (uvi <= 2) {
+                            $(`#uviText${i}`).text(`UV Index:`);
+                            $(`#uviNumber${i}`).text(uvi).css(uviProperties);
+                            $(`#uviCondition${i}`).text(uviCondition);
+                        }
+
+                        function uviColor(uviParameter) {
+                            if (uviParameter <= 2) {
                                 uviCondition = `Low`  
                                 uviProperties.backgroundColor = `darkgreen`;
-                            } else if (uvi <= 5) {
+                            } else if (uviParameter <= 5) {
                                 uviCondition = `Moderate`
                                 uviProperties.backgroundColor = `yellow`;
-                            } else if (uvi <= 7) {
+                            } else if (uviParameter <= 7) {
                                 uviCondition = `High`
                                 uviProperties.backgroundColor = `orange`;
-                            } else if (uvi <= 10) {
+                            } else if (uviParameter <= 10) {
                                 uviCondition = `Very High`
                                 uviProperties.backgroundColor = `red`;
                             } else {
                                 uviCondition = `Extreme`
                                 uviProperties.backgroundColor = `purple`;
                             }
-        
-                            $(`#uviText${i}`).text(`UV Index:`);
-                            $(`#uviNumber${i}`).text(uvi).css(uviProperties);
-                            $(`#uviCondition${i}`).text(uviCondition);
                         }
                     })
             })
@@ -113,6 +110,11 @@ searchBtn.click(function() {
                 let humidity = 0;
                 let windspeed = 0;
                 let counter = 0;
+                $(`#dayHeaderText1`).text(`Day One`)
+                $(`#dayHeaderText2`).text(`Day Two`)
+                $(`#dayHeaderText3`).text(`Day Three`)
+                $(`#dayHeaderText4`).text(`Day Four`)
+                $(`#dayHeaderText5`).text(`Day Five`)
                 for (let i = 1; i < 16; i++) {
                     for (let j = 1; j < 6; j++) {
                         if (j % 2 === 0) {
