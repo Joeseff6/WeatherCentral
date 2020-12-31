@@ -41,7 +41,7 @@ h1, #main {
     border: black 1px solid;
 }
 
-.w-25 {
+.w-25, .current {
     margin: auto;
 }
 
@@ -51,4 +51,8 @@ h1, #main {
 
 .weatherContainer {
     height: 100vh;
+}
+
+#currentUviNumber {
+    max-width: 50px;
 }
