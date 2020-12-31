@@ -24,14 +24,41 @@ searchBtn.click(function() {
             method: `GET`
         })
             .then(function(response) {
+
+
                 var lat = Object.values(response.city.coord)[0];
                 var lon = Object.values(response.city.coord)[1];
-                var onecallURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${weatherAPIKey}`
+                var onecallURL = `https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=${lat}&lon=${lon}&appid=${weatherAPIKey}`
                 $.ajax({
                     url: onecallURL,
                     method: `GET`
                 })
                     .then(function(response) {
+                        console.log(response)
+                        $(`.currentWeatherSection`).removeClass(`d-none`)
+
+                        let currentDate = dayjs().format('MMMM D, YYYY')
+                        let currentIcon = Object.values(response.current.weather[0])[3];
+                        let currentWeatherType = Object.values(response.current.weather[0])[1]
+                        console.log(Object.values(response.current.weather[0]))
+
+                        let currentTemp = Object.values(response.current)[3]
+                        let currentHumidity = Object.values(response.current)[6]
+                        let currentWindSpeed = Object.values(response.current)[11]
+                        $(`#currentWeatherType`).text(`The Current Weather Type Is: ${currentWeatherType}`);
+
+                        $(`#currentTemp`).text(`Temp: ${currentTemp}\u00B0F`);
+                        $(`#currentHumidity`).text(`Humidity: ${currentHumidity}%`);
+                        $(`#currentWindSpeed`).text(`Wind Speed: ${currentWindSpeed}mph`);
+
+
+                        $(`#currentWeatherHeader`).text(`Current Weather: Today is ${currentDate}`)
+
+
+                        $(`#currentIcon`).attr(`src`,`https://openweathermap.org/img/wn/${currentIcon}@2x.png`)
+
+
+
                         let uvi = 0
                         let uviProperties = {
                             backgroundColor: ``,
