@@ -82,8 +82,10 @@ searchBtn.click(function() {
                                     var uviCondition = `Extreme`
                                 }
     
-                                $(`#uviText${i}`).text(`UV Index: ${uvi}`);
+                                $(`#uviText${i}`).text(`UV Index:`);
+                                $(`#uviNumber${i}`).text(uvi);
                                 $(`#uviCondition${i}`).text(uviCondition);
+                                
 
                             }
                         })
