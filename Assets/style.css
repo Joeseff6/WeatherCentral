@@ -7,10 +7,10 @@ body {
     background-color: #2AB7CA;
 }
 
-header {
+header, h2 {
     background-color: #FE4A49;
     text-align: center;
-    border-bottom: black 3px solid;
+    border: black 2px solid;
 }
 
 h1, #main {
@@ -20,8 +20,8 @@ h1, #main {
 #sidebar {
     background-color: #0081a7;
     color:#E6E6EA ;
-    border-right: black 3px solid;
-    border-bottom: black 3px solid;
+    border: black 2px solid;
+
 }
 
 .dayBox, .uviHeader {
@@ -30,7 +30,7 @@ h1, #main {
     border-radius: 15px;
 }
 
-.dayHeader, .uviHeader {
+.dayHeader, .uviHeader, #currentWeatherHeader, .current {
     text-align: center;
 }
 
