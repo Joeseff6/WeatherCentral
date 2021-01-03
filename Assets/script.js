@@ -20,7 +20,12 @@ searchBtn.click(function() {
     console.log(city)
     // searchVal.val(``)
     cityList.push(city)
+    
     storeCities()
+    
+    function storeCities() {
+        localStorage.setItem(`Stored City`, JSON.stringify(cityList));
+    }
 
     console.log(cityList)
     $(`.forecastSection`).removeClass(`d-none`)
@@ -151,12 +156,6 @@ searchBtn.click(function() {
                 }
             })
     })
-    function storeCities() {
-        localStorage.setItem(`Stored City`, JSON.stringify(cityList));
-    }
-    
-
-
 })
 
 function rendorStoredCities() {
