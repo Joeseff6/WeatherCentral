@@ -8,6 +8,21 @@ var city = ``
 
 getStoredCities()
 
+function getStoredCities() {
+    var listedCities = JSON.parse(localStorage.getItem(`Stored City`))
+    if (listedCities !== null) {
+        cityList = listedCities
+    }
+    rendorStoredCities()
+}
+
+function rendorStoredCities() {
+    for (let i = 0; i < cityList.length; i++) {
+        city = cityList[i]
+        $(`<button class="remove">${city}</button>`).appendTo(`#searchHistory`)
+    }
+}
+
 clearBtn.click(function() {
     cityList = []
     localStorage.setItem(`Stored City`, JSON.stringify(cityList));
@@ -22,7 +37,7 @@ searchBtn.click(function() {
     cityList.push(city)
     
     storeCities()
-    
+
     function storeCities() {
         localStorage.setItem(`Stored City`, JSON.stringify(cityList));
     }
@@ -158,17 +173,5 @@ searchBtn.click(function() {
     })
 })
 
-function rendorStoredCities() {
-    for (let i = 0; i < cityList.length; i++) {
-        city = cityList[i]
-        $(`<button class="remove">${city}</button>`).appendTo(`#searchHistory`)
-    }
-}
 
-function getStoredCities() {
-    var listedCities = JSON.parse(localStorage.getItem(`Stored City`))
-    if (listedCities !== null) {
-        cityList = listedCities
-    }
-    rendorStoredCities()
-}
+
