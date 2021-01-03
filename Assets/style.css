@@ -39,6 +39,7 @@ h1, #main {
 
 .btn {
     border: black 1px solid;
+    margin: 10px 10px 0 0;
 }
 
 .w-25, .current {
