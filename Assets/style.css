@@ -23,6 +23,10 @@ h1, #main {
     border: black 2px solid;
 }
 
+.currentWeatherSection {
+    max-width: 700px;
+}
+
 .dayBox, .uviHeader {
     background-color: #0081a7;
     border: solid 2px #FE4A49;
@@ -44,10 +48,6 @@ h1, #main {
 
 .w-25, .current {
     margin: auto;
-}
-
-.test {
-    background-color: #ff4141
 }
 
 .weatherContainer {
