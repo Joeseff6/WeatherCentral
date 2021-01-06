@@ -18,6 +18,33 @@ function storeInfo() {
     localStorage.setItem(`Five Day Forecast`, ``);
 }
 
+function uviDescriptor(uvi) {
+    let uviProperties = {
+        uviCondition: ``,
+        backgroundColor: ``,
+        color: `black`
+    }
+
+    if (uvi <= 2) {
+        uviProperties.uviCondition = `Favorable`  
+        uviProperties.backgroundColor = `darkgreen`;
+    } else if (uvi <= 5) {
+        uviProperties.uviCondition = `Moderate`
+        uviProperties.backgroundColor = `yellow`;
+    } else if (uvi <= 7) {
+        uviProperties.uviCondition = `Severe`
+        uviProperties.backgroundColor = `orange`;
+    } else if (uvi <= 10) {
+        uviProperties.uviCondition = `Exercise Caution`
+        uviProperties.backgroundColor = `red`;
+    } else {
+        uviCondition = `Extreme`
+        uviProperties.backgroundColor = `purple`;
+    }
+
+    return uviProperties
+}
+
 
 searchForm.submit(function(event) {
     event.preventDefault()
@@ -40,11 +67,21 @@ searchForm.submit(function(event) {
                 method: `GET`
             })
                 .then(function(oneCallResponse) {
+                    $(`.currentWeatherSection`).removeClass(`d-none`)
                     console.log(oneCallURL)
                     console.log(oneCallResponse)
-                    let currentTemp = oneCallResponse.current.humidity
-                    let currentDate = oneCallResponse.current.dt
-                    
+                    let currentDateObj = dayjs.unix(oneCallResponse.current.dt)
+                    $(`#currentWeatherHeader`).text(`The Current Weather! Today is ${currentDateObj.$M+1}/${currentDateObj.$D}/${currentDateObj.$y}`)
+                    $(`#currentIcon`).attr(`src`, `https://openweathermap.org/img/wn/${oneCallResponse.current.weather[0].icon}@2x.png`);
+                    $(`#currentWeatherType`).text(`Weather Type: ${oneCallResponse.current.weather[0].description}`);
+                    $(`#currentUviText`).text(`UV Index:`);
+                    let uviNumber = Math.round(oneCallResponse.current.uvi);
+                    let uviProperties = uviDescriptor(uviNumber)
+                    $(`#currentUviNumber`).text(uviNumber).css(uviProperties)
+                    $(`#currentUviCondition`).text(`UV Condition: ${uviProperties.uviCondition}`)
+                    $(`#currentTemp`).text(`Temperature: ${Math.round(oneCallResponse.current.temp)}\u00B0F`)
+                    $(`#currentHumidity`).text(`Humidity: ${Math.round(oneCallResponse.current.humidity)}%`)
+                    $(`#currentWindSpeed`).text(`Windspeed: ${Math.round(oneCallResponse.current.wind_speed)}mph`)
                 })
         })
     
