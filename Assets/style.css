@@ -57,3 +57,12 @@ h1, #main {
 #currentUviNumber {
     max-width: 50px;
 }
+
+@media (max-width: 540px) {
+    #sidebar {
+        width: 40vw;
+    }
+    #main {
+        width: 60vw;
+    }
+}
