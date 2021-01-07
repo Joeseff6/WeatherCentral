@@ -33,7 +33,7 @@ h1, #main {
     border-radius: 15px;
 }
 
-.dayHeader, .uviHeader, h3, .current {
+.dayHeader, .uviHeader, h3, .current, .dayBox {
     text-align: center;
 }
 
@@ -54,7 +54,7 @@ h1, #main {
     height: 100vh;
 }
 
-#currentUviNumber {
+#currentUviNumber, .uviNumber {
     max-width: 50px;
 }
 
