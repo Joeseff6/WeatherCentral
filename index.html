@@ -24,9 +24,9 @@
                     <input class="col-12" type="search" name="searchLocation" id="searchLocation" placeholder="Ex: Houston,Texas">
                     <button class="btn btn-primary" type="submit" id="searchBtn">Search</button>
                 </form>
-                <button class="btn btn-danger" type="button" id="clearBtn">Clear search history</button>
+                <button class="btn btn-danger mb-2" type="button" id="clearBtn">Clear search history</button>
                 <section class="row" id="searchHistory">
-                    <h3>Search History</h3>
+                    <h4>Search History</h4>
                 </section>
             </aside>
             <main class="col-10" id="main">
@@ -39,174 +39,67 @@
                         <img class="imgSize m-auto" id="currentIcon">
                         <h4 class="current" id="currentWeatherType"></h4>
                         <h4 class="current" id="currentUviText"></h4>
-                        <h4 class="current" id="currentUviNumber"></h4>
+                        <h4 class="current" id="currentUviNumber"></h4></h4>
                         <h4 class="current" id="currentUviCondition"></h4>   
                         <h4 class="current" id="currentTemp"></h4>
                         <h4 class="current" id="currentHumidity"></h4>
                         <h4 class="current" id="currentWindSpeed"></h4>
                     </article>
+                </section>
+                <section class="d-none forecastSection">
                     <article class="row">
                         <h2>City 5-Day Forecast</h2>
                     </article>
-                </section>
-                <section class="row d-none forecastSection">
-                    <article class="col" id="dayCol1">
-                        <div class="row dayHeader mx-1">
-                            <h3 id="dayHeaderText1"></h3>    
-                        </div>
-                        <div class="row uviHeader mb-2 mx-1">
-                            <h4 id="uviText0"></h4>
-                            <h5 class="w-25" id="uviNumber0"></h5>
-                            <h5 id="uviCondition0"></h5>    
-                        </div>
-                        <div class="row dayBox mx-1 mb-2">
+                    <article class="row">
+                        <div class="col dayBox">
+                            <h3 id="date1"></h3>
                             <img class="imgSize m-auto" id="icon1">
-                            <span id="date1"></span>
-                            <span id="temp1"></span>
-                            <span id="humidity1"></span>
-                            <span id="windSpeed1"></span>
-                        </div>
-                        <div class="row dayBox mx-1 mb-2">
-                            <img class="imgSize m-auto" id="icon2">
-                            <span id="date2"></span>
-                            <span id="temp2"></span>
-                            <span id="humidity2"></span>
-                            <span id="windSpeed2"></span>
-                        </div>
-                        <div class="row dayBox mx-1 mb-2">
-                            <img class="imgSize m-auto" id="icon3">
-                            <span id="date3"></span>
-                            <span id="temp3"></span>
-                            <span id="humidity3"></span>
-                            <span id="windSpeed3"></span>                        
-                        </div>
-                    </article>
-
-                    <article class="col" id="dayCol2">
-                        <div class="row dayHeader mx-1">
-                            <h3 id="dayHeaderText2"></h3>    
-                        </div>
-                        <div class="row uviHeader mb-2 mx-1">
                             <h4 id="uviText1"></h4>
-                            <h5 class="w-25" id="uviNumber1"></h5>
-                            <h5 id="uviCondition1"></h5>    
+                            <h4 id="uviNumber1"></h4>
+                            <h4 id="uviCondition1"></h4>
+                            <h4 id="temp1"></h4>
+                            <h4 id="humidity1"></h4>
+                            <h4 id="windSpeed1"></h4>
                         </div>
-                        <div class="row dayBox mx-1 mb-2">
-                            <img class="imgSize m-auto" id="icon4">         
-                            <span id="date4"></span>
-                            <span id="temp4"></span>
-                            <span id="humidity4"></span>
-                            <span id="windSpeed4"></span>
-                        </div>
-                        <div class="row dayBox mx-1 mb-2">
-                            <img class="imgSize m-auto" id="icon5">
-                            <span id="date5"></span>
-                            <span id="temp5"></span>
-                            <span id="humidity5"></span>
-                            <span id="windSpeed5"></span>
-                        </div>
-                        <div class="row dayBox mx-1 mb-2">
-                            <img class="imgSize m-auto" id="icon6">
-                            <span id="date6"></span>
-                            <span id="temp6"></span>
-                            <span id="humidity6"></span>
-                            <span id="windSpeed6"></span>
-                        </div>
-                    </article>
-
-                    <article class="col" id="dayCol3">
-                        <div class="row dayHeader mx-1">
-                            <h3 id="dayHeaderText3"></h3>    
-                        </div>
-                        <div class="row uviHeader mb-2 mx-1">
+                        <div class="col dayBox">
+                            <h3 id="date2"></h3>
+                            <img class="imgSize m-auto" id="icon2">
                             <h4 id="uviText2"></h4>
-                            <h5 class="w-25" id="uviNumber2"></h5>
-                            <h5 id="uviCondition2"></h5>    
+                            <h4 id="uviNumber2"></h4>
+                            <h4 id="uviCondition2"></h4>
+                            <h4 id="temp2"></h4>
+                            <h4 id="humidity2"></h4>
+                            <h4 id="windSpeed2"></h4>
                         </div>
-                        <div class="row dayBox mx-1 mb-2">
-                            <img class="imgSize m-auto" id="icon7">
-                            <span id="date7"></span>
-                            <span id="temp7"></span>
-                            <span id="humidity7"></span>
-                            <span id="windSpeed7"></span>
-                        </div>
-                        <div class="row dayBox mx-1 mb-2">
-                            <img class="imgSize m-auto" id="icon8">
-                            <span id="date8"></span>
-                            <span id="temp8"></span>
-                            <span id="humidity8"></span>
-                            <span id="windSpeed8"></span>
-                        </div>
-                        <div class="row dayBox mx-1 mb-2">
-                            <img class="imgSize m-auto" id="icon9">
-                            <span id="date9"></span>
-                            <span id="temp9"></span>
-                            <span id="humidity9"></span>
-                            <span id="windSpeed9"></span>
-                        </div>
-                    </article>
-
-                    <article class="col" id="dayCol4">
-                        <div class="row dayHeader mx-1">
-                            <h3 id="dayHeaderText4"></h3>    
-                        </div>
-                        <div class="row uviHeader mb-2 mx-1">
+                        <div class="col dayBox">
+                            <h3 id="date3"></h3>
+                            <img class="imgSize m-auto" id="icon3">
                             <h4 id="uviText3"></h4>
-                            <h5 class="w-25" id="uviNumber3"></h5>
-                            <h5 id="uviCondition3"></h5>    
+                            <h4 id="uviNumber3"></h4>
+                            <h4 id="uviCondition3"></h4>
+                            <h4 id="temp3"></h4>
+                            <h4 id="humidity3"></h4>
+                            <h4 id="windSpeed3"></h4>
                         </div>
-                        <div class="row dayBox mx-1 mb-2">
-                            <img class="imgSize m-auto" id="icon10">            
-                            <span id="date10"></span>
-                            <span id="temp10"></span>
-                            <span id="humidity10"></span>
-                            <span id="windSpeed10"></span>
-                        </div>
-                        <div class="row dayBox mx-1 mb-2">
-                            <img class="imgSize m-auto" id="icon11">
-                            <span id="date11"></span>
-                            <span id="temp11"></span>
-                            <span id="humidity11"></span>
-                            <span id="windSpeed11"></span>
-                        </div>
-                        <div class="row dayBox mx-1 mb-2">
-                            <img class="imgSize m-auto" id="icon12">
-                            <span id="date12"></span>
-                            <span id="temp12"></span>
-                            <span id="humidity12"></span>
-                            <span id="windSpeed12"></span>
-                        </div>
-                    </article>
-
-                    <article class="col" id="dayCol5">
-                        <div class="row dayHeader mx-1">
-                            <h3 id="dayHeaderText5"></h3>    
-                        </div>
-                        <div class="row uviHeader mb-2 mx-1">
+                        <div class="col dayBox">
+                            <h3 id="date4"></h3>
+                            <img class="imgSize m-auto" id="icon4">
                             <h4 id="uviText4"></h4>
-                            <h5 class="w-25" id="uviNumber4"></h5>
-                            <h5 id="uviCondition4"></h5>    
+                            <h4 id="uviNumber4"></h4>
+                            <h4 id="uviCondition4"></h4>
+                            <h4 id="temp4"></h4>
+                            <h4 id="humidity4"></h4>
+                            <h4 id="windSpeed4"></h4>
                         </div>
-                            <div class="row dayBox mx-1 mb-2">
-                            <img class="imgSize m-auto" id="icon13">            
-                            <span id="date13"></span>
-                            <span id="temp13"></span>
-                            <span id="humidity13"></span>
-                            <span id="windSpeed13"></span>
-                        </div>
-                        <div class="row dayBox mx-1 mb-2">
-                            <img class="imgSize m-auto" id="icon14">
-                            <span id="date14"></span>
-                            <span id="temp14"></span>
-                            <span id="humidity14"></span>
-                            <span id="windSpeed14"></span>
-                        </div>
-                        <div class="row dayBox mx-1 mb-2">
-                            <img class="imgSize m-auto" id="icon15">
-                            <span id="date15"></span>
-                            <span id="temp15"></span>
-                            <span id="humidity15"></span>
-                            <span id="windSpeed15"></span>
+                        <div class="col dayBox">
+                            <h3 id="date5"></h3>
+                            <img class="imgSize m-auto" id="icon5">
+                            <h4 id="uviText5"></h4>
+                            <h4 id="uviNumber5"></h4>
+                            <h4 id="uviCondition5"></h4>
+                            <h4 id="temp5"></h4>
+                            <h4 id="humidity5"></h4>
+                            <h4 id="windSpeed5"></h4>
                         </div>
                     </article>
                 </section>
