@@ -88,9 +88,15 @@ searchForm.submit(function(event) {
                     for (let i = 1; i < 6; i++) {
                         let dateObj = dayjs.unix(oneCallResponse.daily[i].dt)
                         $(`#date${i}`).text(`${dateObj.$M+1}/${dateObj.$D}/${dateObj.$y}`)
-                        console.log(dateObj)
-
-
+                        $(`#icon${i}`).attr(`src`,`https://openweathermap.org/img/wn/${oneCallResponse.daily[i].weather[0].icon}@2x.png`)
+                        $(`#weather${i}`).text(`Weahther: ${oneCallResponse.daily[i].weather[0].description}`)
+                        $(`#uviText${i}`).text(`UV Index:`)
+                        let uviProperties = uviDescriptor(Math.round(oneCallResponse.daily[i].uvi))
+                        $(`#uviNumber${i}`).text(Math.round(oneCallResponse.daily[i].uvi)).css(uviProperties)
+                        $(`#uviCondition${i}`).text(`Cond: ${uviProperties.uviCondition}`)
+                        $(`#temp${i}`).text(`Temp: ${Math.round(oneCallResponse.daily[i].temp.day)}\u00B0F`)
+                        $(`#humidity${i}`).text(`Humidity: ${oneCallResponse.daily[i].humidity}%`)
+                        $(`#windSpeed${i}`).text(`Wind: ${Math.round(oneCallResponse.daily[i].wind_speed)}mph`)
                     }
                 })
         })
