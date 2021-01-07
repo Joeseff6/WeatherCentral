@@ -33,7 +33,7 @@ h1, #main {
     border-radius: 15px;
 }
 
-.dayHeader, .uviHeader, #currentWeatherHeader, .current {
+.dayHeader, .uviHeader, h3, .current {
     text-align: center;
 }
 
