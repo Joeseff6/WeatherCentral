@@ -89,7 +89,7 @@ searchForm.submit(function(event) {
                         let dateObj = dayjs.unix(oneCallResponse.daily[i].dt)
                         $(`#date${i}`).text(`${dateObj.$M+1}/${dateObj.$D}/${dateObj.$y}`)
                         $(`#icon${i}`).attr(`src`,`https://openweathermap.org/img/wn/${oneCallResponse.daily[i].weather[0].icon}@2x.png`)
-                        $(`#weather${i}`).text(`Weahther: ${oneCallResponse.daily[i].weather[0].description}`)
+                        $(`#weather${i}`).text(`Weather: ${oneCallResponse.daily[i].weather[0].description}`)
                         $(`#uviText${i}`).text(`UV Index:`)
                         let uviProperties = uviDescriptor(Math.round(oneCallResponse.daily[i].uvi))
                         $(`#uviNumber${i}`).text(Math.round(oneCallResponse.daily[i].uvi)).css(uviProperties)
