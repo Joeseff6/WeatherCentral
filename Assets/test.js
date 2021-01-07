@@ -51,6 +51,7 @@ searchForm.submit(function(event) {
     let city = searchVal.val()
     if (city) {
         var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
+        $(`#city`).text(`City Name: ${city}`);
     }
 
     $.ajax({
@@ -82,6 +83,15 @@ searchForm.submit(function(event) {
                     $(`#currentTemp`).text(`Temperature: ${Math.round(oneCallResponse.current.temp)}\u00B0F`)
                     $(`#currentHumidity`).text(`Humidity: ${Math.round(oneCallResponse.current.humidity)}%`)
                     $(`#currentWindSpeed`).text(`Windspeed: ${Math.round(oneCallResponse.current.wind_speed)}mph`)
+
+                    $(`.forecastSection`).removeClass(`d-none`)
+                    for (let i = 1; i < 6; i++) {
+                        let dateObj = dayjs.unix(oneCallResponse.daily[i].dt)
+                        $(`#date${i}`).text(`${dateObj.$M+1}/${dateObj.$D}/${dateObj.$y}`)
+                        console.log(dateObj)
+
+
+                    }
                 })
         })
     
