@@ -3,6 +3,7 @@ const clearBtn = $(`#clearBtn`);
 const searchVal = $(`#searchLocation`);
 const searchForm = $(`#searchForm`);
 const weatherAPIKey = `e1e7a51f8e49f8c421e774a281377b83`
+const searchHistory = $(`#searchHistory`)
 
 function getStoredInfo() {
 
@@ -10,6 +11,12 @@ function getStoredInfo() {
 
 function rendorStoredinfo() {
 
+}
+
+function addSearch() {
+    const btn = $(`<button>`);
+    btn.attr(`class`,`searchItem`).text(searchVal.val())
+    searchHistory.append(btn)
 }
 
 function storeInfo() {
@@ -47,6 +54,11 @@ function uviDescriptor(uvi) {
 
 function ajaxCall(event) {
     event.preventDefault()
+
+
+
+    addSearch()
+
     let city = searchVal.val()
     if (city) {
         var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
@@ -103,6 +115,3 @@ function ajaxCall(event) {
 }
 
 searchForm.submit(ajaxCall)
-
-
-searchBtn.click(ajaxCall)
