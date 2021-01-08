@@ -45,8 +45,7 @@ function uviDescriptor(uvi) {
     return uviProperties
 }
 
-
-searchForm.submit(function(event) {
+function ajaxCall(event) {
     event.preventDefault()
     let city = searchVal.val()
     if (city) {
@@ -101,4 +100,9 @@ searchForm.submit(function(event) {
                 })
         })
     
-})  
+}
+
+searchForm.submit(ajaxCall)
+
+
+searchBtn.click(ajaxCall)
