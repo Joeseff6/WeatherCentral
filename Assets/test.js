@@ -15,7 +15,7 @@ function rendorStoredinfo() {
 
 function addSearch() {
     const btn = $(`<button>`);
-    btn.attr(`class`,`searchItem btn btn-info`).text(searchVal.val())
+    btn.attr(`class`,`searchItem btn btn-info mx-0 my-0`).text(searchVal.val())
     searchHistory.append(btn)
 }
 
