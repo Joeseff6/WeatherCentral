@@ -15,7 +15,7 @@ function rendorStoredinfo() {
 
 function addSearch() {
     const btn = $(`<button>`);
-    btn.attr(`class`,`searchItem`).text(searchVal.val())
+    btn.attr(`class`,`searchItem btn btn-info`).text(searchVal.val())
     searchHistory.append(btn)
 }
 
@@ -105,12 +105,11 @@ function ajaxCall(apiUrl) {
 searchForm.submit(function(event) {
     event.preventDefault()
 
-    addSearch()
-
     let city = searchVal.val()
     if (city) {
         var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
         $(`#city`).text(`City Name: ${city}`);
+        addSearch()
     }
 
     ajaxCall(weatherURL)
