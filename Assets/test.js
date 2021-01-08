@@ -125,3 +125,7 @@ $(document).on(`click`,`.searchItem`,function() {
 
     ajaxCall(weatherURL)
 })
+
+clearBtn.click(function() {
+    $(`.searchItem`).remove()
+})
