@@ -52,21 +52,9 @@ function uviDescriptor(uvi) {
     return uviProperties
 }
 
-function ajaxCall(event) {
-    event.preventDefault()
-
-
-
-    addSearch()
-
-    let city = searchVal.val()
-    if (city) {
-        var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
-        $(`#city`).text(`City Name: ${city}`);
-    }
-
+function ajaxCall(apiUrl) {
     $.ajax({
-        url: weatherURL,
+        url: apiUrl,
         method: `GET`
     })
         .then(function(weatherResponse) {
@@ -114,4 +102,26 @@ function ajaxCall(event) {
     
 }
 
-searchForm.submit(ajaxCall)
+searchForm.submit(function(event) {
+    event.preventDefault()
+
+    addSearch()
+
+    let city = searchVal.val()
+    if (city) {
+        var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
+        $(`#city`).text(`City Name: ${city}`);
+    }
+
+    ajaxCall(weatherURL)
+})
+
+$(document).on(`click`,`.searchItem`,function() {
+    let city = $(this).text()
+    if (city) {
+        var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
+        $(`#city`).text(`City Name: ${city}`);
+    }
+
+    ajaxCall(weatherURL)
+})
