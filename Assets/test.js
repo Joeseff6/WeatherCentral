@@ -4,25 +4,37 @@ const searchVal = $(`#searchLocation`);
 const searchForm = $(`#searchForm`);
 const weatherAPIKey = `e1e7a51f8e49f8c421e774a281377b83`
 const searchHistory = $(`#searchHistory`)
+var searchItems = []
+
+getStoredInfo()
 
 function getStoredInfo() {
+    var storedSearchItems = JSON.parse(localStorage.getItem(`Search Items`))
+    if (storedSearchItems !== null) {
+        searchItems = storedSearchItems;
+    }
 
+    rendorStoredInfo()
 }
 
-function rendorStoredinfo() {
-
+function rendorStoredInfo() {
+    for (i = 0; i < searchItems.length; i++) {
+        var btn = $(`<button>`);
+        btn.attr(`class`,`searchItem btn btn-info mx-0 my-0`).text(searchItems[i])
+        searchHistory.append(btn)
+    }
 }
 
 function addSearch() {
     const btn = $(`<button>`);
     btn.attr(`class`,`searchItem btn btn-info mx-0 my-0`).text(searchVal.val())
     searchHistory.append(btn)
+    searchItems.push(searchVal.val())
+    storeInfo()    
 }
 
 function storeInfo() {
-    localStorage.setItem(`Search History`, ``);
-    localStorage.setItem(`Current City Data`, ``);
-    localStorage.setItem(`Five Day Forecast`, ``);
+    localStorage.setItem(`Search Items`, JSON.stringify(searchItems))
 }
 
 function uviDescriptor(uvi) {
@@ -110,6 +122,7 @@ searchForm.submit(function(event) {
         var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
         $(`#city`).text(`City Name: ${city}`);
         addSearch()
+        searchVal.val(``)
     }
 
     ajaxCall(weatherURL)
@@ -127,4 +140,6 @@ $(document).on(`click`,`.searchItem`,function() {
 
 clearBtn.click(function() {
     $(`.searchItem`).remove()
+    searchItems = [];
+    localStorage.setItem(`Search Items`,JSON.stringify(searchItems));
 })
