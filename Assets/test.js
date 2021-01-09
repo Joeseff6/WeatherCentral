@@ -5,6 +5,8 @@ const searchForm = $(`#searchForm`);
 const weatherAPIKey = `e1e7a51f8e49f8c421e774a281377b83`
 const searchHistory = $(`#searchHistory`)
 var searchItems = []
+var currentCityInfo = []
+var fiveDayInfo = []
 
 getStoredInfo()
 
@@ -12,6 +14,12 @@ function getStoredInfo() {
     var storedSearchItems = JSON.parse(localStorage.getItem(`Search Items`))
     if (storedSearchItems !== null) {
         searchItems = storedSearchItems;
+    }
+
+    var storedCurrentCityInfo = JSON.parse(localStorage.getItem(`Current City Info`))
+    if (storedCurrentCityInfo !== []) {
+        currentCityInfo = storedCurrentCityInfo
+        $(`.currentWeatherSection`).removeClass(`d-none`)
     }
 
     rendorStoredInfo()
@@ -23,6 +31,19 @@ function rendorStoredInfo() {
         btn.attr(`class`,`searchItem btn btn-info mx-0 my-0`).text(searchItems[i])
         searchHistory.append(btn)
     }
+
+    $(`#city`).text(`City Name: ${currentCityInfo[0]}`);
+    $(`#currentWeatherHeader`).text(`The Current Weather! Today is ${currentCityInfo[1]}`)
+    $(`#currentIcon`).attr(`src`, `https://openweathermap.org/img/wn/${currentCityInfo[2]}@2x.png`);
+    $(`#currentWeatherType`).text(`Weather Type: ${currentCityInfo[3]}`);
+    $(`#currentUviText`).text(`UV Index:`);
+    let uviNumber = currentCityInfo[4];
+    let uviProperties = uviDescriptor(uviNumber)
+    $(`#currentUviNumber`).text(uviNumber).css(uviProperties)
+    $(`#currentUviCondition`).text(`UV Condition: ${currentCityInfo[5]}`)
+    $(`#currentTemp`).text(`Temperature: ${currentCityInfo[6]}\u00B0F`)
+    $(`#currentHumidity`).text(`Humidity: ${currentCityInfo[7]}%`)
+    $(`#currentWindSpeed`).text(`Windspeed: ${currentCityInfo[8]}mph`)
 }
 
 function addSearch() {
@@ -34,7 +55,9 @@ function addSearch() {
 }
 
 function storeInfo() {
-    localStorage.setItem(`Search Items`, JSON.stringify(searchItems))
+    localStorage.setItem(`Search Items`, JSON.stringify(searchItems));
+    localStorage.setItem(`Current City Info`, JSON.stringify(currentCityInfo));
+    localStorage.setItem(`Five Day Info`, JSON.stringify(fiveDayInfo));
 }
 
 function uviDescriptor(uvi) {
@@ -94,6 +117,11 @@ function ajaxCall(apiUrl) {
                     $(`#currentTemp`).text(`Temperature: ${Math.round(oneCallResponse.current.temp)}\u00B0F`)
                     $(`#currentHumidity`).text(`Humidity: ${Math.round(oneCallResponse.current.humidity)}%`)
                     $(`#currentWindSpeed`).text(`Windspeed: ${Math.round(oneCallResponse.current.wind_speed)}mph`)
+                    currentCityInfo.push(`${currentDateObj.$M+1}/${currentDateObj.$D}/${currentDateObj.$y}`, `${oneCallResponse.current.weather[0].icon}`, `${oneCallResponse.current.weather[0].description}`, `${Math.round(oneCallResponse.current.uvi)}`, `${uviProperties.uviCondition}`, `${Math.round(oneCallResponse.current.temp)}`, `${Math.round(oneCallResponse.current.humidity)}`, `${Math.round(oneCallResponse.current.wind_speed)}`)
+
+                    storeInfo()
+
+                    
 
                     $(`.forecastSection`).removeClass(`d-none`)
                     for (let i = 1; i < 6; i++) {
@@ -121,6 +149,8 @@ searchForm.submit(function(event) {
     if (city) {
         var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
         $(`#city`).text(`City Name: ${city}`);
+        currentCityInfo = []
+        currentCityInfo.push(city)
         addSearch()
         searchVal.val(``)
     }
@@ -129,10 +159,12 @@ searchForm.submit(function(event) {
 })
 
 $(document).on(`click`,`.searchItem`,function() {
-    let city = $(this).text()
+    var city = $(this).text()
     if (city) {
         var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
         $(`#city`).text(`City Name: ${city}`);
+        currentCityInfo = []
+        currentCityInfo.push(city)
     }
 
     ajaxCall(weatherURL)
@@ -141,5 +173,7 @@ $(document).on(`click`,`.searchItem`,function() {
 clearBtn.click(function() {
     $(`.searchItem`).remove()
     searchItems = [];
+    currentCityInfo = [];
     localStorage.setItem(`Search Items`,JSON.stringify(searchItems));
+    localStorage.setItem(`Current City Info`,JSON.stringify(currentCityInfo));
 })
