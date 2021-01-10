@@ -1,67 +1,73 @@
-/* Set Global font and font color*/
+/* Style Global font and font color*/
 * {
     font-family: 'Lora', serif;
+    color:#E6E6EA ;
 }
 
+/* Style background for web application */
 body {
     background-color: #2AB7CA;
 }
 
+/* Style headings */
 header, h2 {
     background-color: #FE4A49;
     text-align: center;
     border: black 2px solid;
 }
 
-h1, #main {
-    color:#E6E6EA ;
-}
-
+/* Style sidebar background/border */
 #sidebar {
     background-color: #0081a7;
-    color:#E6E6EA ;
     border: black 2px solid;
 }
 
+/* Set max width so the box displaying current weather doesn't stretch across the available whitespace */
 .currentWeatherSection {
     max-width: 700px;
 }
 
-.dayBox, .uviHeader {
+/* Styled all weather info containing boxes */
+.dayBox {
     background-color: #0081a7;
     border: solid 2px #FE4A49;
     border-radius: 15px;
 }
 
-.dayHeader, .uviHeader, h3, .current, .dayBox {
+/* Center align descriptive text */
+.dayHeader, h3, .current, .dayBox {
     text-align: center;
 }
 
+/* Set a max width for weather icons */
 .imgSize {
     max-width: 124px;
 }
 
+/* Styled buttons for emphasis/placement */
 .btn {
     border: black 1px solid;
     margin: 10px 10px 0 0;
 }
 
-.w-25, .current {
-    margin: auto;
-}
-
+/* Set height to allow sidebar to stretch to full container height */
 .weatherContainer {
     height: 100vh;
 }
 
+/* Set width to box containing UVI number, gave border for emphasis */
 #currentUviNumber, .uviNumber {
     max-width: 50px;
+    margin: auto;
+    border: black solid 2px;
 }
 
+/* Enlarged sidebar label for accessibility */
 label {
     font-size: larger;
 }
 
+/* Optimized feature width for iPhone X and smaller resolutions */
 @media (max-width: 540px) {
     #sidebar {
         width: 40vw;
