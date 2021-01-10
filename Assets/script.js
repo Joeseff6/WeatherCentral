@@ -8,6 +8,7 @@ var searchItems = []
 var currentCityInfo = []
 var fiveDayInfo = []
 
+
 getStoredInfo()
 
 function getStoredInfo() {
@@ -20,15 +21,13 @@ function getStoredInfo() {
     if (storedCurrentCityInfo !== null) {
         currentCityInfo = storedCurrentCityInfo
         $(`.currentWeatherSection`).removeClass(`d-none`)
-    }
+    } 
 
     var storedFiveDayInfo = JSON.parse(localStorage.getItem(`Five Day Info`))
     if (storedFiveDayInfo !== null) {
         fiveDayInfo = storedFiveDayInfo
         $(`.forecastSection`).removeClass(`d-none`)
     }
-
-    console.log(fiveDayInfo)
 
     rendorStoredInfo()
 }
@@ -40,7 +39,11 @@ function rendorStoredInfo() {
         searchHistory.append(btn)
     }
 
-    $(`#city`).text(`City Name: ${currentCityInfo[0]}`);
+    if (currentCityInfo[0]) {
+        $(`#city`).text(`City Name: ${currentCityInfo[0]}`);
+    } else {
+        $(`#city`).text(`City Name: Pick a City!`)
+    }
     $(`#currentWeatherHeader`).text(`The Current Weather! Today is ${currentCityInfo[1]}`)
     $(`#currentIcon`).attr(`src`, `https://openweathermap.org/img/wn/${currentCityInfo[2]}@2x.png`);
     $(`#currentWeatherType`).text(`Weather Type: ${currentCityInfo[3]}`);
@@ -71,10 +74,12 @@ function rendorStoredInfo() {
 
 function addSearch() {
     const btn = $(`<button>`);
-    btn.attr(`class`,`searchItem btn btn-info mx-0 my-0`).text(searchVal.val())
-    searchHistory.append(btn)
-    searchItems.push(searchVal.val())
-    storeInfo()    
+    if (searchVal.val() !== ``) {
+        btn.attr(`class`,`searchItem btn btn-info mx-0 my-0`).text(searchVal.val())
+        searchHistory.append(btn)
+        searchItems.push(searchVal.val())
+        storeInfo()   
+    }
 }
 
 function storeInfo() {
@@ -110,12 +115,21 @@ function uviDescriptor(uvi) {
     return uviProperties
 }
 
-function ajaxCall(apiUrl) {
+function ajaxCall(apiUrl,city) {
     $.ajax({
         url: apiUrl,
         method: `GET`
     })
+        .fail(function() {
+            searchVal.val(`Not found!`)
+        })
         .then(function(weatherResponse) {
+            console.log(city)
+            $(`#city`).text(`City Name: ${city}`);
+            currentCityInfo = []
+            currentCityInfo.push(city)
+            addSearch()
+            searchVal.val(``)
             var lat = weatherResponse.coord.lat
             var lon = weatherResponse.coord.lon
             
@@ -184,38 +198,23 @@ function ajaxCall(apiUrl) {
 searchForm.submit(function(event) {
     event.preventDefault()
 
-    let city = searchVal.val()
-    if (city) {
-        var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
-        $(`#city`).text(`City Name: ${city}`);
-        currentCityInfo = []
-        currentCityInfo.push(city)
-        addSearch()
-        searchVal.val(``)
-    }
-
-    ajaxCall(weatherURL)
+    var city = searchVal.val()
+    var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
+    console.log(city)
+    ajaxCall(weatherURL,city)
 })
 
 $(document).on(`click`,`.searchItem`,function() {
     var city = $(this).text()
-    if (city) {
-        var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
-        $(`#city`).text(`City Name: ${city}`);
-        currentCityInfo = []
-        currentCityInfo.push(city)
-        fiveDayInfo = []
-    }
+    $(`#city`).text(`City Name: ${city}`);
+    var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
 
-    ajaxCall(weatherURL)
+    ajaxCall(weatherURL,city)
 })
 
 clearBtn.click(function() {
     $(`.searchItem`).remove()
-    searchItems = [];
-    currentCityInfo = [];
-    fiveDayInfo = [];
-    localStorage.setItem(`Search Items`,JSON.stringify(searchItems));
-    localStorage.setItem(`Current City Info`,JSON.stringify(currentCityInfo));
-    localStorage.setItem(`Five Day Info`,JSON.stringify(fiveDayInfo));
+    localStorage.removeItem(`Search Items`);
+    localStorage.removeItem(`Current City Info`);
+    localStorage.removeItem(`Five Day Info`);
 })
