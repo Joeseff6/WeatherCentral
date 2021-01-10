@@ -62,9 +62,14 @@ header, h2 {
     border: black solid 2px;
 }
 
-/* Enlarged sidebar label for accessibility */
+/* Enlarged sidebar label for visibility */
 label {
     font-size: larger;
+}
+
+/* Set font color in search bar for visibility */
+input {
+    color: black;
 }
 
 /* Optimized feature width for iPhone X and smaller resolutions */
