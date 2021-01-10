@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Central Hub</title>
+
+    <!-- Third-Party CSS API -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -12,10 +14,13 @@
 
 <body>
     <div class="container-fluid">
+        <!-- Web application header -->
         <header class="row">
             <h1>Central Weather Dashboard</h1>
         </header>
+        <!-- All other content -->
         <div class="row weatherContainer">
+            <!-- Sidebar, containing search bar and search history -->
             <aside class="col-2" id="sidebar">
                 <form id="searchForm">
                     <label class="col-12" for="searchLocation">Choose a location: (If including state, you must not abbreviate state)</label>
@@ -27,7 +32,9 @@
                     <h4>Search History</h4>
                 </section>
             </aside>
+            <!-- Main content, containing current weather and forecasted weather information -->
             <main class="col-10" id="main">
+                <!-- Current weather section -->
                 <section class="row" id="centralDisplay">
                         <h2 id="city">City Name: Pick a City!</h2>
                     <article class="currentWeatherSection dayBox m-auto my-3 d-none">
@@ -42,6 +49,7 @@
                         <h4 class="current" id="currentWindSpeed"></h4>
                     </article>
                 </section>
+                <!-- Forecast weather section. Each col div is a box containing weather information -->
                 <section class="row d-none forecastSection m-a">
                         <h2>City 5-Day Forecast</h2>
                     <article class="row m-auto">
@@ -106,6 +114,7 @@
         </div>
     </div>
 
+    <!-- Third-Party Javascript API -->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.9.8/dayjs.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
