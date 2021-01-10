@@ -1,202 +1,221 @@
-const searchForm = $(`#searchForm`);
 const searchBtn = $(`#searchBtn`);
-const searchVal = $(`#searchLocation`)
-const clearBtn = $(`#clearBtn`)
-var cityList = [];
-var currentCityRendor = [];
-var weatherAPIKey = `e1e7a51f8e49f8c421e774a281377b83`;
-var city = ``;
-var uviProperties = {
-    backgroundColor: ``,
-    color: `black`
-};
+const clearBtn = $(`#clearBtn`);
+const searchVal = $(`#searchLocation`);
+const searchForm = $(`#searchForm`);
+const weatherAPIKey = `e1e7a51f8e49f8c421e774a281377b83`
+const searchHistory = $(`#searchHistory`)
+var searchItems = []
+var currentCityInfo = []
+var fiveDayInfo = []
 
 getStoredInfo()
 
-
 function getStoredInfo() {
-    let listedCities = JSON.parse(localStorage.getItem(`Stored City`))
-    if (listedCities !== null) {
-        cityList = listedCities
+    var storedSearchItems = JSON.parse(localStorage.getItem(`Search Items`))
+    if (storedSearchItems !== null) {
+        searchItems = storedSearchItems;
     }
-    let currentCity = JSON.parse(localStorage.getItem(`Current City`))
-    if (currentCity !== null) {
-        currentCityRendor = currentCity
+
+    var storedCurrentCityInfo = JSON.parse(localStorage.getItem(`Current City Info`))
+    if (storedCurrentCityInfo !== null) {
+        currentCityInfo = storedCurrentCityInfo
+        $(`.currentWeatherSection`).removeClass(`d-none`)
     }
-    console.log(currentCityRendor)
+
+    var storedFiveDayInfo = JSON.parse(localStorage.getItem(`Five Day Info`))
+    if (storedFiveDayInfo !== null) {
+        fiveDayInfo = storedFiveDayInfo
+        $(`.forecastSection`).removeClass(`d-none`)
+    }
+
+    console.log(fiveDayInfo)
+
     rendorStoredInfo()
 }
 
 function rendorStoredInfo() {
-    for (let i = 0; i < cityList.length; i++) {
-        city = cityList[i]
-        $(`<button class="remove">${city}</button>`).appendTo(`#searchHistory`)
+    for (i = 0; i < searchItems.length; i++) {
+        var btn = $(`<button>`);
+        btn.attr(`class`,`searchItem btn btn-info mx-0 my-0`).text(searchItems[i])
+        searchHistory.append(btn)
     }
-    $(`#currentWeatherType`).text(`The Current Weather Type Is: ${currentCityRendor[4]}`);
+
+    $(`#city`).text(`City Name: ${currentCityInfo[0]}`);
+    $(`#currentWeatherHeader`).text(`The Current Weather! Today is ${currentCityInfo[1]}`)
+    $(`#currentIcon`).attr(`src`, `https://openweathermap.org/img/wn/${currentCityInfo[2]}@2x.png`);
+    $(`#currentWeatherType`).text(`Weather Type: ${currentCityInfo[3]}`);
     $(`#currentUviText`).text(`UV Index:`);
-    $(`#currentUviNumber`).text(currentCityRendor[2]).css(uviProperties);
-    $(`#currentUviCondition`).text(`UV Condition: ${currentCityRendor[3]}`);
-    $(`#currentTemp`).text(`Temp: ${currentCityRendor[5]}\u00B0F`);
-    $(`#currentHumidity`).text(`Humidity: ${currentCityRendor[6]}%`);
-    $(`#currentWindSpeed`).text(`Wind Speed: ${currentCityRendor[7]}mph`);
-    $(`#currentWeatherHeader`).text(`Current Weather: Today is ${currentCityRendor[0]}`)
-    $(`#currentIcon`).attr(`src`,`https://openweathermap.org/img/wn/${currentCityRendor[1]}@2x.png`)
+    let uviNumber = currentCityInfo[4];
+    let uviProperties = uviDescriptor(uviNumber)
+    $(`#currentUviNumber`).text(uviNumber).css(uviProperties)
+    $(`#currentUviCondition`).text(`UV Condition: ${currentCityInfo[5]}`)
+    $(`#currentTemp`).text(`Temperature: ${currentCityInfo[6]}\u00B0F`)
+    $(`#currentHumidity`).text(`Humidity: ${currentCityInfo[7]}%`)
+    $(`#currentWindSpeed`).text(`Windspeed: ${currentCityInfo[8]}mph`)
+
+    let dayIterator = 1;
+    for (i = 0; i < fiveDayInfo.length; i++) {
+        $(`#date${dayIterator}`).text(`${fiveDayInfo[i].date}`)
+        $(`#icon${dayIterator}`).attr(`src`,`https://openweathermap.org/img/wn/${fiveDayInfo[i].icon}@2x.png`)
+        $(`#weather${dayIterator}`).text(`Weather: ${fiveDayInfo[i].weather}`)
+        $(`#uviText${dayIterator}`).text(`UV Index:`)
+        let uviProperties = uviDescriptor(`${fiveDayInfo[i].uviNumber}`)
+        $(`#uviNumber${dayIterator}`).text(`${fiveDayInfo[i].uviNumber}`).css(uviProperties)
+        $(`#uviCondition${dayIterator}`).text(`Cond: ${uviProperties.uviCondition}`)
+        $(`#temp${dayIterator}`).text(`Temp: ${fiveDayInfo[i].temp}\u00B0F`)
+        $(`#humidity${dayIterator}`).text(`Humidity: ${fiveDayInfo[i].humidity}%`)
+        $(`#windSpeed${dayIterator}`).text(`Wind: ${fiveDayInfo[i].windSpeed}mph`)
+        dayIterator++
+    }
 }
 
+function addSearch() {
+    const btn = $(`<button>`);
+    btn.attr(`class`,`searchItem btn btn-info mx-0 my-0`).text(searchVal.val())
+    searchHistory.append(btn)
+    searchItems.push(searchVal.val())
+    storeInfo()    
+}
 
-function uviColor(uviParameter) {
-    if (uviParameter <= 2) {
-        uviCondition = `Low`  
+function storeInfo() {
+    localStorage.setItem(`Search Items`, JSON.stringify(searchItems));
+    localStorage.setItem(`Current City Info`, JSON.stringify(currentCityInfo));
+    localStorage.setItem(`Five Day Info`, JSON.stringify(fiveDayInfo));
+}
+
+function uviDescriptor(uvi) {
+    let uviProperties = {
+        uviCondition: ``,
+        backgroundColor: ``,
+        color: `black`
+    }
+
+    if (uvi <= 2) {
+        uviProperties.uviCondition = `Favorable`  
         uviProperties.backgroundColor = `darkgreen`;
-    } else if (uviParameter <= 5) {
-        uviCondition = `Moderate`
+    } else if (uvi <= 5) {
+        uviProperties.uviCondition = `Moderate`
         uviProperties.backgroundColor = `yellow`;
-    } else if (uviParameter <= 7) {
-        uviCondition = `High`
+    } else if (uvi <= 7) {
+        uviProperties.uviCondition = `Severe`
         uviProperties.backgroundColor = `orange`;
-    } else if (uviParameter <= 10) {
-        uviCondition = `Very High`
+    } else if (uvi <= 10) {
+        uviProperties.uviCondition = `Exercise Caution`
         uviProperties.backgroundColor = `red`;
     } else {
-        uviCondition = `Extreme`
+        uviProperties.uviCondition = `Extreme`
         uviProperties.backgroundColor = `purple`;
     }
+
+    return uviProperties
 }
 
-
-
-clearBtn.click(function() {
-    cityList = []
-    localStorage.setItem(`Stored City`, JSON.stringify(cityList));
-    $(`.remove`).remove()
-})
-
-searchBtn.click(function(event) {
-    event.preventDefault();
-    city = searchVal.val();
-    if (city) {
-        $(`.forecastSection`).removeClass(`d-none`)
-        $(`<button class="remove">${city}</button>`).appendTo(`#searchHistory`)    
-        searchForm.submit(function(event) {
-            $(`#city`).text(`City Name: ${city}`)
-    
-            var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${weatherAPIKey}`;
-                            
+function ajaxCall(apiUrl) {
+    $.ajax({
+        url: apiUrl,
+        method: `GET`
+    })
+        .then(function(weatherResponse) {
+            var lat = weatherResponse.coord.lat
+            var lon = weatherResponse.coord.lon
+            
+            var oneCallURL = `https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=${lat}&lon=${lon}&exclude=minutely,hourly&appid=${weatherAPIKey}`
             $.ajax({
-                url: forecastURL,
+                url: oneCallURL,
                 method: `GET`
             })
-                .then(function(response) {
-                    var lat = Object.values(response.city.coord)[0];
-                    var lon = Object.values(response.city.coord)[1];
-                    var onecallURL = `https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=${lat}&lon=${lon}&appid=${weatherAPIKey}`
-                    $.ajax({
-                        url: onecallURL,
-                        method: `GET`
-                    })
-                        .then(function(response) {
-                            // window.open(onecallURL,`_target`)
-                            $(`.currentWeatherSection`).removeClass(`d-none`)
-                            let currentDate = dayjs().format('MMMM D, YYYY')
-                            let currentIcon = Object.values(response.current.weather[0])[3];
-                            let currentUvi = Math.round(Object.values(response.current)[8])
-                            let uviCondition = ``
-                            let currentWeatherType = Object.values(response.current.weather[0])[1]
-                            let currentTemp = Object.values(response.current)[3].toFixed(0)
-                            let currentHumidity = Object.values(response.current)[6]
-                            let currentWindSpeed = Object.values(response.current)[11]
-                            currentCityRendor = [currentDate, currentIcon, currentUvi, uviCondition, currentWeatherType, currentTemp, currentHumidity, currentWindSpeed];
-                            uviColor(currentUvi)
-                            localStorage.setItem('Current City', JSON.stringify(currentCityRendor));
-    
-    
-                            $(`#currentWeatherType`).text(`The Current Weather Type Is: ${currentWeatherType}`);
-                            $(`#currentUviText`).text(`UV Index:`);
-                            $(`#currentUviNumber`).text(currentUvi).css(uviProperties);
-                            $(`#currentUviCondition`).text(`UV Condition: ${uviCondition}`);
-                            $(`#currentTemp`).text(`Temp: ${currentTemp}\u00B0F`);
-                            $(`#currentHumidity`).text(`Humidity: ${currentHumidity}%`);
-                            $(`#currentWindSpeed`).text(`Wind Speed: ${currentWindSpeed}mph`);
-                            $(`#currentWeatherHeader`).text(`Current Weather: Today is ${currentDate}`)
-                            $(`#currentIcon`).attr(`src`,`https://openweathermap.org/img/wn/${currentIcon}@2x.png`)
-    
-                            let uvi = 0
-    
-                            for (let i = 0; i < 5; i++) {
-                                uvi = Math.round(Object.values(response.daily[i])[14])
-                                uviArrLength = (Object.values(response.daily[i])).length
-                                if (uviArrLength === 14) {
-                                    uvi = Math.round(Object.values(response.daily[i])[13])
-                                }
-                                uviColor(uvi)
-                                $(`#uviText${i}`).text(`UV Index:`);
-                                $(`#uviNumber${i}`).text(uvi).css(uviProperties);
-                                $(`#uviCondition${i}`).text(uviCondition);
-                            }
-                        })
-                })
-    
-            $.ajax({
-                url: forecastURL,
-                method: `GET`
-            })
-                .then(function(response) {
-                    let hourIterator = 0;
-                    let date = ``;
-                    let icon = ``;
-                    let tempF = 0;
-                    let humidity = 0;
-                    let windspeed = 0;
-                    let counter = 0;
-                    $(`#dayHeaderText1`).text(`Day One`)
-                    $(`#dayHeaderText2`).text(`Day Two`)
-                    $(`#dayHeaderText3`).text(`Day Three`)
-                    $(`#dayHeaderText4`).text(`Day Four`)
-                    $(`#dayHeaderText5`).text(`Day Five`)
-                    for (let i = 1; i < 16; i++) {
-                        for (let j = 1; j < 6; j++) {
-                            if (j % 2 === 0) {
-                                $(`#dayCol${j}`).css(`backgroundColor`,`#ff7777`).css(`border`, `solid black 2px`)
-                            } else {
-                                $(`#dayCol${j}`).css(`backgroundColor`,`#ff4141`).css(`border`, `solid black 2px`)
-                            }
+                .then(function(oneCallResponse) {
+                    $(`.currentWeatherSection`).removeClass(`d-none`)
+                    console.log(oneCallURL)
+                    console.log(oneCallResponse)
+                    let currentDateObj = dayjs.unix(oneCallResponse.current.dt)
+                    $(`#currentWeatherHeader`).text(`The Current Weather! Today is ${currentDateObj.$M+1}/${currentDateObj.$D}/${currentDateObj.$y}`)
+                    $(`#currentIcon`).attr(`src`, `https://openweathermap.org/img/wn/${oneCallResponse.current.weather[0].icon}@2x.png`);
+                    $(`#currentWeatherType`).text(`Weather Type: ${oneCallResponse.current.weather[0].description}`);
+                    $(`#currentUviText`).text(`UV Index:`);
+                    let uviNumber = Math.round(oneCallResponse.current.uvi);
+                    let uviProperties = uviDescriptor(uviNumber)
+                    $(`#currentUviNumber`).text(uviNumber).css(uviProperties)
+                    $(`#currentUviCondition`).text(`UV Condition: ${uviProperties.uviCondition}`)
+                    $(`#currentTemp`).text(`Temperature: ${Math.round(oneCallResponse.current.temp)}\u00B0F`)
+                    $(`#currentHumidity`).text(`Humidity: ${Math.round(oneCallResponse.current.humidity)}%`)
+                    $(`#currentWindSpeed`).text(`Windspeed: ${Math.round(oneCallResponse.current.wind_speed)}mph`)
+                    currentCityInfo.push(`${currentDateObj.$M+1}/${currentDateObj.$D}/${currentDateObj.$y}`, `${oneCallResponse.current.weather[0].icon}`, `${oneCallResponse.current.weather[0].description}`, `${Math.round(oneCallResponse.current.uvi)}`, `${uviProperties.uviCondition}`, `${Math.round(oneCallResponse.current.temp)}`, `${Math.round(oneCallResponse.current.humidity)}`, `${Math.round(oneCallResponse.current.wind_speed)}`)
+
+                    storeInfo()
+
+                    var forecastArr = []
+
+                    $(`.forecastSection`).removeClass(`d-none`)
+                    for (let i = 1; i < 6; i++) {
+                        let dateObj = dayjs.unix(oneCallResponse.daily[i].dt)
+                        $(`#date${i}`).text(`${dateObj.$M+1}/${dateObj.$D}/${dateObj.$y}`)
+                        $(`#icon${i}`).attr(`src`,`https://openweathermap.org/img/wn/${oneCallResponse.daily[i].weather[0].icon}@2x.png`)
+                        $(`#weather${i}`).text(`Weather: ${oneCallResponse.daily[i].weather[0].description}`)
+                        $(`#uviText${i}`).text(`UV Index:`)
+                        let uviProperties = uviDescriptor(Math.round(oneCallResponse.daily[i].uvi))
+                        $(`#uviNumber${i}`).text(Math.round(oneCallResponse.daily[i].uvi)).css(uviProperties)
+                        $(`#uviCondition${i}`).text(`Cond: ${uviProperties.uviCondition}`)
+                        $(`#temp${i}`).text(`Temp: ${Math.round(oneCallResponse.daily[i].temp.day)}\u00B0F`)
+                        $(`#humidity${i}`).text(`Humidity: ${oneCallResponse.daily[i].humidity}%`)
+                        $(`#windSpeed${i}`).text(`Wind: ${Math.round(oneCallResponse.daily[i].wind_speed)}mph`)
+
+                        let forecastObj = {
+                            date: `${dateObj.$M+1}/${dateObj.$D}/${dateObj.$y}`,
+                            icon: `${oneCallResponse.daily[i].weather[0].icon}`,
+                            weather: `${oneCallResponse.daily[i].weather[0].description}`,
+                            uviText: `UV Index:`,
+                            uviNumber: `${Math.round(oneCallResponse.daily[i].uvi)}`,
+                            temp: `${Math.round(oneCallResponse.daily[i].temp.day)}`,
+                            humidity: `${oneCallResponse.daily[i].humidity}`,
+                            windSpeed: `${Math.round(oneCallResponse.daily[i].wind_speed)}`
                         }
-    
-                        icon = Object.values(response.list[hourIterator].weather[0])[3];
-                        date = response.list[hourIterator].dt_txt;
-                        tempF = (Object.values(response.list[hourIterator].main)[0]).toFixed(0);
-                        humidity = Object.values(response.list[hourIterator].main)[7];
-                        windspeed = Object.values(response.list[hourIterator].wind)[0];
-                        $(`#icon${i}`).attr(`src`,`https://openweathermap.org/img/wn/${icon}@2x.png`);
-                        $(`#date${i}`).text(`Day: ${date}`);
-                        $(`#temp${i}`).text(`Temp: ${tempF}\u00B0F`);
-                        $(`#humidity${i}`).text(`Humidity: ${humidity}%`);
-                        $(`#windSpeed${i}`).text(`Wind Speed: ${windspeed}mph`);
-                        hourIterator += 2
-                        counter++
-                        if (counter === 3 && hourIterator < 36) {
-                            counter = 0
-                            hourIterator += 2
-                        }
+
+                        forecastArr.push(forecastObj)
                     }
+
+                    fiveDayInfo = forecastArr
+                    storeInfo()
                 })
         })
-    }
-
-    console.log(city)
-    // searchVal.val(``)
-    cityList.push(city)
     
-    storeCities()
+}
 
-    function storeCities() {
-        localStorage.setItem(`Stored City`, JSON.stringify(cityList));
+searchForm.submit(function(event) {
+    event.preventDefault()
+
+    let city = searchVal.val()
+    if (city) {
+        var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
+        $(`#city`).text(`City Name: ${city}`);
+        currentCityInfo = []
+        currentCityInfo.push(city)
+        addSearch()
+        searchVal.val(``)
     }
 
-    console.log(cityList)
-
-
+    ajaxCall(weatherURL)
 })
 
+$(document).on(`click`,`.searchItem`,function() {
+    var city = $(this).text()
+    if (city) {
+        var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}`
+        $(`#city`).text(`City Name: ${city}`);
+        currentCityInfo = []
+        currentCityInfo.push(city)
+        fiveDayInfo = []
+    }
 
+    ajaxCall(weatherURL)
+})
 
+clearBtn.click(function() {
+    $(`.searchItem`).remove()
+    searchItems = [];
+    currentCityInfo = [];
+    fiveDayInfo = [];
+    localStorage.setItem(`Search Items`,JSON.stringify(searchItems));
+    localStorage.setItem(`Current City Info`,JSON.stringify(currentCityInfo));
+    localStorage.setItem(`Five Day Info`,JSON.stringify(fiveDayInfo));
+})

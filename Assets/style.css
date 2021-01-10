@@ -58,6 +58,10 @@ h1, #main {
     max-width: 50px;
 }
 
+label {
+    font-size: larger;
+}
+
 @media (max-width: 540px) {
     #sidebar {
         width: 40vw;
