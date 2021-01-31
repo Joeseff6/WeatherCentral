@@ -1,3 +1,4 @@
+![GitHub](https://img.shields.io/github/license/Joeseff6/WeatherCentral)
 # WeatherCentral
 
 ## Link to My Deployed Application
